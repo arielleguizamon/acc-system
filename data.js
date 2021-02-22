@@ -15,5 +15,6 @@ exports.transactions = [
 
 exports.account = {
   value: 80,
+  user: 1,
   locked: false,
 };
