@@ -1,6 +1,6 @@
 exports.transactions = [
   {
-    id: 1,
+    id: 0,
     type: "credit",
     amount: 100,
     effectiveDate: 1614011841291,
@@ -8,7 +8,12 @@ exports.transactions = [
   {
     id: 1,
     type: "debit",
-    amount: 80,
+    amount: 20,
     effectiveDate: 1614011841291,
   },
 ];
+
+exports.account = {
+  value: 80,
+  locked: false,
+};
