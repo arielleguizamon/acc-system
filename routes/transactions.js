@@ -14,7 +14,6 @@ router.get("/:id", (req, res) => {
 
 router.post("/", async (req, res) => {
   const { type, amount } = req.body;
-  console.log(req.body);
   if (!type || !amount) return res.status(400).json("All params are mandatory");
 
   try {
@@ -23,6 +22,7 @@ router.post("/", async (req, res) => {
   } catch (err) {
     return res.status(500).json(err);
   }
+  //   Start of locked state
   if (type === "debit") account.locked = true;
   if (type === "debit" && account.value - amount < 0) {
     account.locked = false;
@@ -30,9 +30,13 @@ router.post("/", async (req, res) => {
       .status(400)
       .json("The requested account cannot fulfil the requested transaction");
   }
-  if (type === "debit") account.value -= amount;
+  if (type === "debit") {
+    account.value -= amount;
+    // End locked state
+    account.locked = false;
+  }
+
   if (type === "credit") account.value += amount;
-  account.locked = false;
   const transaction = {
     id: transactions.length,
     type,
